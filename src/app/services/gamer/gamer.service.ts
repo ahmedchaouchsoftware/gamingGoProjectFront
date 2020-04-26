@@ -22,7 +22,7 @@ export class GamerService {
     return this.http.post(AppSettings.APP_URL + "/gamers/add" , gamer)
   }
 
-  login(mail:string, password:string){
+  loginGamer(mail:string, password:string){
     let param = new HttpParams();
     param.append("mail",mail)
     param.append("password",password)
