@@ -11,18 +11,18 @@ export class CharacterService {
   constructor(private http: HttpClient) { }
 
   findAllCharacters(){
-    return this.http.get(AppSettings.APP_URL + "/gamecharacters/list")
+    return this.http.get<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/list")
   }
 
   findGameCharacterById(idGameCharacter : Number){
-    return this.http.get(AppSettings.APP_URL + "/gamecharacters/" + idGameCharacter)
+    return this.http.get<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/" + idGameCharacter)
   }
 
   saveGameCharacter(gameCharacter: GameCharacter){
-    this.http.post(AppSettings.APP_URL + "/gamecharacters/add",gameCharacter)
+    this.http.post<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/add",gameCharacter)
   }
 
   shareGameCharacter(idGameCharacter: Number, sharedGameCharacter: boolean){
-    return this.http.get(AppSettings.APP_URL + "/gamecharacters/share/" + idGameCharacter + sharedGameCharacter)
+    return this.http.get<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/share/" + idGameCharacter + sharedGameCharacter)
   }
 }

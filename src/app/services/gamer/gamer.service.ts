@@ -11,23 +11,19 @@ export class GamerService {
   constructor(private http: HttpClient) { }
 
   findAllGamers(){
-    return this.http.get(AppSettings.APP_URL + "/gamers/list")
+    return this.http.get<Gamer>(AppSettings.APP_URL + "/gamers/list")
   }
 
   findGamerById(idGamer:Number){
-    return this.http.get(AppSettings.APP_URL + "/gamers/" + idGamer)
+    return this.http.get<Gamer>(AppSettings.APP_URL + "/gamers/" + idGamer)
   }
 
   saveGamer(gamer:Gamer){
-    return this.http.post(AppSettings.APP_URL + "/gamers/add" , gamer)
+    return this.http.post<Gamer>(AppSettings.APP_URL + "/gamers/add" , gamer)
   }
 
   loginGamer(mail:string, password:string){
-    let param = new HttpParams();
-    param.append("mail",mail)
-    param.append("password",password)
-
-    return this.http.post(AppSettings.APP_URL + "/gamers/login",param)
+    return this.http.post<Gamer>(AppSettings.APP_URL + "/gamers/login?mail="+ mail + "&password=" + password,null)
   }
 
 }
