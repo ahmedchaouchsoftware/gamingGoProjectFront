@@ -14,6 +14,10 @@ export class CharacterService {
     return this.http.get<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/list")
   }
 
+  findAllGamerCharacters(idGamer : Number){
+    return this.http.get<GameCharacter[]>(AppSettings.APP_URL + "/gamecharacters/allCharacters/" + idGamer)
+  }
+
   findGameCharacterById(idGameCharacter : Number){
     return this.http.get<GameCharacter>(AppSettings.APP_URL + "/gamecharacters/" + idGameCharacter)
   }
