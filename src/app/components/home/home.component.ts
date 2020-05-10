@@ -7,7 +7,7 @@ import { GameCharacter } from 'src/app/models/gameCharacter';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['../../resources/bootstrap/css/bootstrap.min.css','./home.component.scss']
+  styleUrls: ['../../resources/bootstrap/css/bootstrap.min.css','../../resources/fontawesome/css/all.min.css','./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 

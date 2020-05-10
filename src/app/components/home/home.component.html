@@ -1,22 +1,29 @@
 <div class="container">
-    <div class="container-fluid">
+    <div class="row">
         <input type="text" class="form-control"/>
     </div>
     <br/>
-    <div class="container-fluid">
+    <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page"><a href="#">Create</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><a href="#"><i class="fas fa-plus"></i>&nbsp;Add New Character</a></li>
             </ol>
         </nav>
     </div>
     <br/>
-    <div class="container-fluid card-deck">
-        <div class="card" *ngFor="let car of gameCharacters">
-            <img class="card-img-top" src="../../resources/img/Goku.png" alt="Card image cap">
+    <div class="row">
+        <div class="card" *ngFor="let car of gameCharacters" style="width: 18rem;margin-right: 30px;">
+            <div class="card-header bg-transparent">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-link"><i class="fas fa-pen"></i>&nbsp;Edit</button>
+                    <button type="button" class="btn btn-link"><i class="fas fa-trash"></i>&nbsp;Remove</button>
+                    <button type="button" class="btn btn-link"><i class="fas fa-share-alt"></i>&nbsp;Share</button>
+                </div>
+            </div>
+            <img class="card-img-top" src="http://localhost:8080/v1/photos/character/{{car.idGameCharacter}}">
             <div class="card-body">
                 <h5 class="card-title">{{car.nameGameCharacter}}</h5>
-                <p class="card-text">{{car.categoryGameCharacter}}</p>
+                <span class="badge badge-pill badge-primary">{{car.categoryGameCharacter}}</span>
             </div>
         </div>
     </div>
