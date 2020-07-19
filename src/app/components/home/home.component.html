@@ -1,8 +1,26 @@
 <div class="container">
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="http://localhost:8080/v1/photos/gamer/{{gamer.idGamer}}" width="50" height="50" class="d-inline-block align-top"/>
+                {{gamer.lastNameGamer}}&nbsp;{{gamer.firstNameGamer}}
+            </a>
+        </nav>
+    </div>
     <div class="row">
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" placeholder="Search"/>
     </div>
     <br/>
+    <div class="row" *ngIf="errorMessage">
+        <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+    <div class="row" *ngIf="successMessage">
+        <div class="alert alert-success" role="alert">
+            {{successMessage}}
+        </div>
+    </div>
     <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -13,16 +31,25 @@
     <br/>
     <div class="row">
         <div class="card" *ngFor="let car of gameCharacters" style="width: 18rem;margin-right: 30px;">
-            <div class="card-header bg-transparent">
+            <div class="card-header bg-transparent" *ngIf="car.idOwner !== -1">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-link"><i class="fas fa-pen"></i>&nbsp;Edit</button>
                     <button type="button" class="btn btn-link"><i class="fas fa-trash"></i>&nbsp;Remove</button>
-                    <button type="button" class="btn btn-link"><i class="fas fa-share-alt"></i>&nbsp;Share</button>
+                    <button type="button" class="btn btn-link" *ngIf="car.sharedGameCharacter == 0" (click)="shareGameCharacter(car.idGameCharacter, car.sharedGameCharacter)"><i class="fas fa-share-alt"></i>&nbsp;Share</button>
+                    <button type="button" class="btn btn-link" *ngIf="car.sharedGameCharacter == 1" (click)="shareGameCharacter(car.idGameCharacter, car.sharedGameCharacter)"><i class="fas fa-share-alt"></i>&nbsp;UnShare</button>
                 </div>
             </div>
-            <img class="card-img-top" src="http://localhost:8080/v1/photos/character/{{car.idGameCharacter}}">
+            <div class="card-header bg-transparent" *ngIf="car.idOwner === -1">
+                <button type="button" class="btn btn-outline-primary btn-link">
+                    <i class="fas fa-share-alt"></i>&nbsp;Shared
+                </button>
+            </div>
+            <img class="card-img-top" src="http://localhost:8080/v1/photos/character/{{car.idGameCharacter}}" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">{{car.nameGameCharacter}}</h5>
+                <p class="card-text">{{car.legend}}</p>
+            </div>
+            <div class="card-footer">
                 <span class="badge badge-pill badge-primary">{{car.categoryGameCharacter}}</span>
             </div>
         </div>

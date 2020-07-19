@@ -12,13 +12,19 @@ import { GameCharacter } from 'src/app/models/gameCharacter';
 export class HomeComponent implements OnInit {
 
   gamer : Gamer
-  gameCharacters : GameCharacter[] 
+  gameCharacters : GameCharacter[]
+  errorMessage : string
+  successMessage : string 
 
   constructor(private gameCharacterService : CharacterService, private router : Router) {
     this.checkGamer()
   }
 
   ngOnInit(): void {
+    this.findAllGameCharacters()
+  }
+
+  findAllGameCharacters() {
     this.gameCharacterService.findAllGamerCharacters(this.gamer.idGamer)
     .subscribe(data => {
       this.gameCharacters = data
@@ -26,6 +32,29 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
   }
+
+  shareGameCharacter(idGameCharacter: number, shared: boolean){
+    if(idGameCharacter == undefined){
+      this.displayMessage("An error has occured while sharing the game character",2)
+    }
+    this.gameCharacterService.shareGameCharacter(idGameCharacter,shared)
+    .pipe()
+    .subscribe(data => {
+      this.displayMessage("Character was successfully updated", 1)
+      this.findAllGameCharacters()
+    })
+  }
+
+  displayMessage(message : string, type : number){
+    if(type === 1){
+      this.successMessage = message
+      setTimeout(()=> {this.successMessage = ""}, 5000)
+    } else if (type === 2) {
+      this.errorMessage = message
+      setTimeout(()=> {this.errorMessage = ""}, 5000)
+    }
+  }
+
 
   checkGamer(){
     if(localStorage.getItem('currentGamer') === undefined || localStorage.getItem('currentGamer') === null){
